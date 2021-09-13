@@ -1,0 +1,47 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+// use App\Http\Controllers\ProdukController;
+// use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\LaporanController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', 'ShopController@index');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('products', 'ShopController@product')->name('product');
+Route::get('products/{id}', 'ShopController@product_show');
+Route::get('about', 'ShopController@about')->name('about');
+Route::get('contact', 'ShopController@contact')->name('contact');
+Route::get('test', function () {
+    return view('new');
+});
+// Route::resource('cart', CartController::class);
+Route::get('cart','CartController@index')->name('cart.index');
+Route::get('cart/{id}/add', 'CartController@store')->name('cart.store');
+Route::get('checkout','ShopController@checkout');
+Route::get('shop-grid', 'ShopController@product');
+Route::get('blog', 'ShopController@blog');
+
+Route::get('/barang-api', [ProdukController::class, 'barang_api']);
+Route::middleware(['auth','auth.admin'])->group(function() {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    Route::resource('/barang', ProdukController::class);
+    Route::resource('/kategori', KategoriController::class);
+    Route::get('/report', [LaporanController::class, 'index'])->name('report');
+    Route::get('/penjualan', [AdminController::class, 'input_transaksi'])->name('penjualan');
+});
