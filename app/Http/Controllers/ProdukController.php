@@ -18,8 +18,8 @@ class ProdukController extends Controller
     public function index()
     {
         //
-        // $produk = Produk::paginate(10);
-        $produk = Produk::all();
+        $produk = Produk::paginate(10);
+        // $produk = Produk::all();
         // dd($produk);
         return view('admin.barang.index', compact('produk'));
     }

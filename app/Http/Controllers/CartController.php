@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Produk;
+use App\Kategori;
+use App\User;
 
 class CartController extends Controller
 {
@@ -15,6 +17,8 @@ class CartController extends Controller
     public function index()
     {
         //
+        $kategori = Kategori::all();
+        $data['kategori'] = $kategori;
         // session()->forget('cart');
         $cart  = session('cart');
         $item_list = $cart->map(function ($item) {
@@ -26,8 +30,9 @@ class CartController extends Controller
                 'jumlah' => $item['jumlah'],
             ];
         });
+        $data['item_list'] = $item_list;
         // dd($item_list);
-        return view('cart', compact('item_list'));
+        return view('cart', $data);
     }
 
     /**

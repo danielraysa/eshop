@@ -63,6 +63,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $produk->links('layouts.components.pagination') }}
             {{-- {{ $produk->links('pagination::simple-tailwind') }} --}}
         </div>
     </div>    

@@ -4,7 +4,11 @@
 @endpush
 @section('content')
     {{-- <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalTambah">Tambah</button> --}}
-    <a href="{{ route('kategori.create') }}" class="btn btn-success">Tambah</a>
+    <div class="row mb-3">
+        <div class="col-lg-12">
+            <a href="{{ route('kategori.create') }}" class="btn btn-success">Tambah</a>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-12 table-responsive">
             <table class="table table-bordered table-striped">
@@ -21,12 +25,13 @@
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td>{{ $item->nama_kategori }}</td>
                         <td class="text-center">
-                            <button class="btn btn-primary"><i data-feather="edit"></i> Edit</button>
+                            <a href="{{ route('kategori.edit', $item) }}" class="btn btn-primary"><i data-feather="edit"></i> Edit</a>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
+            {{ $kategori->links('layouts.components.pagination') }}
         </div>
     </div>
     

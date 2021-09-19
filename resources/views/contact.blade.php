@@ -103,13 +103,13 @@
 <!--/ End Contact -->
 
 <!-- Map Section -->
-<div class="map-section">
+{{-- <div class="map-section">
     <div id="myMap"></div>
-</div>
+</div> --}}
 <!--/ End Map Section -->
 
 <!-- Start Shop Newsletter  -->
-<section class="shop-newsletter section">
+<section class="shop-newsletter section pt-0">
     <div class="container">
         <div class="inner-top">
             <div class="row">

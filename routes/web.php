@@ -1,10 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-// use App\Http\Controllers\ProdukController;
-// use App\Http\Controllers\KategoriController;
-use App\Http\Controllers\LaporanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,11 +33,17 @@ Route::get('checkout','ShopController@checkout');
 Route::get('shop-grid', 'ShopController@product');
 Route::get('blog', 'ShopController@blog');
 
-Route::get('/barang-api', [ProdukController::class, 'barang_api']);
-Route::middleware(['auth','auth.admin'])->group(function() {
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    Route::resource('/barang', ProdukController::class);
-    Route::resource('/kategori', KategoriController::class);
-    Route::get('/report', [LaporanController::class, 'index'])->name('report');
-    Route::get('/penjualan', [AdminController::class, 'input_transaksi'])->name('penjualan');
+// Route::get('/barang-api', [ProdukController::class, 'barang_api']);
+Route::prefix('admin')->middleware(['auth','auth.admin'])->group(function() {
+    /* Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
+    Route::resource('barang', ProdukController::class);
+    Route::resource('kategori', KategoriController::class);
+    Route::get('report', [LaporanController::class, 'index'])->name('report');
+    Route::get('penjualan', [AdminController::class, 'input_transaksi'])->name('penjualan'); */
+    Route::get('dashboard', 'HomeController@index')->name('dashboard');
+    Route::resource('barang', 'ProdukController');
+    Route::resource('kategori', 'KategoriController');
+    Route::resource('penjualan', 'PenjualanController');
+    Route::get('report', 'LaporanController@index')->name('report');
+    // Route::get('penjualan', 'AdminController@input_transaksi')->name('penjualan');
 });

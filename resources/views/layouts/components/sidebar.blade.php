@@ -41,8 +41,8 @@
                 </ul>
             </li>
 
-            <li class="sidebar-item {{ Route::currentRouteName() == 'penjualan' ? 'active' : '' }}">
-                <a class="sidebar-link" href="{{ route('penjualan') }}">
+            <li class="sidebar-item {{ Route::currentRouteName() == 'penjualan.index' ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('penjualan.index') }}">
                     <i class="align-middle" data-feather="edit-3"></i> <span class="align-middle">Penjualan</span>
                 </a>
             </li>

@@ -35,7 +35,7 @@
 							<h3 class="title">Categories</h3>
 							<ul class="categor-list">
 								@foreach ($kategori as $item)
-								<li><a href="#">{{ $item->nama_kategori }}</a></li>
+								<li><a href="?kategori={{ $item->id }}">{{ $item->nama_kategori }}</a></li>
 								@endforeach
 								{{-- <li><a href="#">T-shirts</a></li>
 								<li><a href="#">jacket</a></li>

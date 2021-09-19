@@ -15,7 +15,7 @@ class KategoriController extends Controller
     public function index()
     {
         //
-        $kategori = Kategori::all();
+        $kategori = Kategori::paginate(10);
         return view('admin.kategori.index', compact('kategori'));
     }
 
@@ -43,7 +43,7 @@ class KategoriController extends Controller
         Kategori::create([
             'nama_kategori' => $request->nama_kategori,
         ]);
-        return redirect()->route('kategori.index')->with('status', ['class' => 'success', 'value' => 'Berhasil menambah produk']);
+        return redirect()->route('kategori.index')->with('status', ['class' => 'success', 'value' => 'Berhasil menambah kategori']);
     }
 
     /**
@@ -66,6 +66,8 @@ class KategoriController extends Controller
     public function edit(Kategori $kategori)
     {
         //
+        $data['kategori'] = $kategori;
+        return view('admin.kategori.form', $data);
     }
 
     /**
@@ -78,6 +80,10 @@ class KategoriController extends Controller
     public function update(Request $request, Kategori $kategori)
     {
         //
+        Kategori::find($kategori->id)->update([
+            'nama_kategori' => $request->nama_kategori,
+        ]);
+        return redirect()->route('kategori.index')->with('status', ['class' => 'success', 'value' => 'Berhasil mengubah kategori']);
     }
 
     /**
