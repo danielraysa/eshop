@@ -35,7 +35,7 @@
 							</tr>
 						</thead>
 						<tbody>
-						@if(isset($item_list))
+						@if($item_list->count() != 0)
 						@foreach ($item_list as $item)
 							<tr>
 								<td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#"></td>
@@ -60,11 +60,15 @@
 									</div>
 									<!--/ End Input Order -->
 								</td>
-								<td class="total-amount" data-title="Total"><span>Rp {{ number_format($item['harga'] * $item['jumlah'],0,",",".") }}</span></td>
+								<td class="total-amount" data-title="Total"><span>Rp {{ number_format($item['sub_total'],0,",",".") }}</span></td>
 								<td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a></td>
 							</tr>
 							
 						@endforeach
+						@else
+						<tr>
+							<td colspan="5" style="text-align: center">Belum ada barang ditambahkan</td>
+						</tr>
 						@endif
 							{{-- <tr>
 								<td class="image" data-title="No"><img src="https://via.placeholder.com/100x100" alt="#"></td>
@@ -123,6 +127,7 @@
 					<!--/ End Shopping Summery -->
 				</div>
 			</div>
+			@if($item_list->count() != 0)
 			<div class="row">
 				<div class="col-12">
 					<!-- Total Amount -->
@@ -144,14 +149,14 @@
 							<div class="col-lg-4 col-md-7 col-12">
 								<div class="right">
 									<ul>
-										<li>Cart Subtotal<span>$330.00</span></li>
+										<li>Cart Subtotal<span>Rp. {{ number_format($item_list->sum('sub_total'),0,",",".") }}</span></li>
 										{{-- <li>Shipping<span>Free</span></li> --}}
 										{{-- <li>You Save<span>$20.00</span></li> --}}
 										{{-- <li class="last">You Pay<span>$310.00</span></li> --}}
 									</ul>
 									<div class="button5">
-										<a href="#" class="btn">Checkout</a>
-										<a href="#" class="btn">Continue shopping</a>
+										<a href="{{ url('checkout') }}" class="btn">Checkout</a>
+										<a href="{{ url('products') }}" class="btn">Continue shopping</a>
 									</div>
 								</div>
 							</div>
@@ -160,6 +165,7 @@
 					<!--/ End Total Amount -->
 				</div>
 			</div>
+			@endif
 		</div>
 	</div>
 	<!--/ End Shopping Cart -->

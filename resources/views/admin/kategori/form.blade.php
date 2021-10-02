@@ -4,7 +4,6 @@
 @endpush
 @section('content')
 @if(isset($kategori))
-{{ dd($kategori) }}
 <form action="{{ route('kategori.update', $kategori->id) }}" method="POST">
 @method('PUT')
 @else

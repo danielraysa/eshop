@@ -37,7 +37,7 @@
         <div class="col-lg-6">
             <div class="mb-3">
                 <label class="form-label">File Gambar</label>
-                <input type="file" accept=".jpg,.jpeg,.png" name="file_gambar[]" class="form-control" multiple required/>
+                <input type="file" accept=".jpg,.jpeg,.png" name="file_gambar[]" class="form-control" multiple />
             </div>
             <div class="mb-3">
                 <label class="form-label">Deskripsi</label>

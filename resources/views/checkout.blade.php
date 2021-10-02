@@ -8,7 +8,7 @@
 						<div class="bread-inner">
 							<ul class="bread-list">
 								<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="blog-single.html">Checkout</a></li>
+								<li class="active"><a href="#">Checkout</a></li>
 							</ul>
 						</div>
 					</div>
@@ -30,29 +30,29 @@
 								<div class="row">
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
-											<label>First Name<span>*</span></label>
-											<input type="text" name="name" placeholder="" required="required">
+											<label>Name<span>*</span></label>
+											<input type="text" name="name" placeholder="" value="{{ Auth::user()->name }}" required="required">
 										</div>
 									</div>
-									<div class="col-lg-6 col-md-6 col-12">
+									{{-- <div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Last Name<span>*</span></label>
-											<input type="text" name="name" placeholder="" required="required">
+											<input type="text" name="name" placeholder="" value="{{ Auth::user()->last_name }}" required="required">
 										</div>
-									</div>
+									</div> --}}
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Email Address<span>*</span></label>
-											<input type="email" name="email" placeholder="" required="required">
+											<input type="email" name="email" placeholder="" value="{{ Auth::user()->email }}" required="required">
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Phone Number<span>*</span></label>
-											<input type="number" name="number" placeholder="" required="required">
+											<input type="number" name="number" placeholder="" value="{{ Auth::user()->phone_number }}" required="required">
 										</div>
 									</div>
-									<div class="col-lg-6 col-md-6 col-12">
+									{{-- <div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Country<span>*</span></label>
 											<select name="country_name" id="country">
@@ -303,8 +303,8 @@
 												<option value="ZW">Zimbabwe</option>
 											</select>
 										</div>
-									</div>
-									<div class="col-lg-6 col-md-6 col-12">
+									</div> --}}
+									{{-- <div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>State / Divition<span>*</span></label>
 											<select name="state-province" id="state-province">
@@ -317,20 +317,20 @@
 												<option>Charlotte</option>
 											</select>
 										</div>
-									</div>
+									</div> --}}
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
-											<label>Address Line 1<span>*</span></label>
-											<input type="text" name="address" placeholder="" required="required">
+											<label>Address <span>*</span></label>
+											<input type="text" name="address" placeholder="" value="{{ Auth::user()->address }}" required="required">
 										</div>
 									</div>
-									<div class="col-lg-6 col-md-6 col-12">
+									{{-- <div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Address Line 2<span>*</span></label>
 											<input type="text" name="address" placeholder="" required="required">
 										</div>
-									</div>
-									<div class="col-lg-6 col-md-6 col-12">
+									</div> --}}
+									{{-- <div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Postal Code<span>*</span></label>
 											<input type="text" name="post" placeholder="" required="required">
@@ -355,7 +355,7 @@
 											<input id="cbox" type="checkbox">
 											<label>Create an account?</label>
 										</div>
-									</div>
+									</div> --}}
 								</div>
 							</form>
 							<!--/ End Form -->
@@ -368,9 +368,9 @@
 								<h2>CART  TOTALS</h2>
 								<div class="content">
 									<ul>
-										<li>Sub Total<span>$330.00</span></li>
-										<li>(+) Shipping<span>$10.00</span></li>
-										<li class="last">Total<span>$340.00</span></li>
+										<li>Sub Total<span>Rp. {{ number_format($item['sub_total'],0,",",".") }}</span></li>
+										{{-- <li>(+) Shipping<span>$10.00</span></li> --}}
+										<li class="last">Total<span>Rp/ {{ number_format($item['sub_total'],0,",",".") }}</span></li>
 									</ul>
 								</div>
 							</div>
@@ -380,9 +380,9 @@
 								<h2>Payments</h2>
 								<div class="content">
 									<div class="checkbox">
-										<label class="checkbox-inline" for="1"><input name="updates" id="1" type="checkbox"> Check Payments</label>
-										<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox"> Cash On Delivery</label>
-										<label class="checkbox-inline" for="3"><input name="news" id="3" type="checkbox"> PayPal</label>
+										<label class="checkbox-inline" for="1"><input name="payment" id="1" type="radio"> Transfer</label>
+										<label class="checkbox-inline" for="2"><input name="payment" id="2" type="radio"> Cash On Delivery</label>
+										{{-- <label class="checkbox-inline" for="3"><input name="payment" id="3" type="radio"> PayPal</label> --}}
 									</div>
 								</div>
 							</div>
@@ -410,71 +410,5 @@
 		</section>
 		<!--/ End Checkout -->
 		
-		<!-- Start Shop Services Area  -->
-		<section class="shop-services section home">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Start Single Service -->
-						<div class="single-service">
-							<i class="ti-rocket"></i>
-							<h4>Free shiping</h4>
-							<p>Orders over $100</p>
-						</div>
-						<!-- End Single Service -->
-					</div>
-					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Start Single Service -->
-						<div class="single-service">
-							<i class="ti-reload"></i>
-							<h4>Free Return</h4>
-							<p>Within 30 days returns</p>
-						</div>
-						<!-- End Single Service -->
-					</div>
-					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Start Single Service -->
-						<div class="single-service">
-							<i class="ti-lock"></i>
-							<h4>Sucure Payment</h4>
-							<p>100% secure payment</p>
-						</div>
-						<!-- End Single Service -->
-					</div>
-					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Start Single Service -->
-						<div class="single-service">
-							<i class="ti-tag"></i>
-							<h4>Best Peice</h4>
-							<p>Guaranteed price</p>
-						</div>
-						<!-- End Single Service -->
-					</div>
-				</div>
-			</div>
-		</section>
-		<!-- End Shop Services -->
 		
-		<!-- Start Shop Newsletter  -->
-		<section class="shop-newsletter section">
-			<div class="container">
-				<div class="inner-top">
-					<div class="row">
-						<div class="col-lg-8 offset-lg-2 col-12">
-							<!-- Start Newsletter Inner -->
-							<div class="inner">
-								<h4>Newsletter</h4>
-								<p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
-								<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-									<input name="EMAIL" placeholder="Your email address" required="" type="email">
-									<button class="btn">Subscribe</button>
-								</form>
-							</div>
-							<!-- End Newsletter Inner -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		<!-- End Shop Newsletter -->
 @endsection

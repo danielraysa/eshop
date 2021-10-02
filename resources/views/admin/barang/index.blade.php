@@ -50,7 +50,7 @@
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td>{{ $item->nama_produk }}</td>
                         <td>{{ $item->kategori_produk->nama_kategori }}</td>
-                        <td class="text-center">{{ $item->harga }}</td>
+                        <td class="text-center">Rp. {{ number_format($item->harga,0,",",".") }}</td>
                         <td class="text-center">
                             @foreach ($item->gambar_produk as $gambar)
                                 <a href="{{ $gambar->getFile() }}" target="_blank"><img src="{{ $gambar->getFile() }}" width="50" /></a>

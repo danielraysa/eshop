@@ -16,6 +16,11 @@ class CreateTransaksisTable extends Migration
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
             $table->integer('user');
+            $table->string('address');
+            $table->string('phone_number');
+            $table->string('payment_method');
+            $table->integer('total');
+            $table->string('status_payment')->nullable();
             $table->timestamps();
         });
     }
