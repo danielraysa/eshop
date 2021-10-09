@@ -55,7 +55,15 @@ class ShopController extends Controller
             ];
         });
         $data['item_list'] = $item_list;
+        // dd($item_list);
         return view('checkout', $data);
+    }
+
+    public function saveCheckout(Request $request)
+    {
+        $cart  = session('cart');
+        dd($cart, $request->all());
+        // return view('checkout', $data);
     }
 
     public function blog()

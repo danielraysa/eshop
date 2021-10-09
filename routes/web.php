@@ -29,10 +29,13 @@ Route::get('test', function () {
 // Route::resource('cart', CartController::class);
 Route::get('cart','CartController@index')->name('cart.index');
 Route::get('cart/{id}/add', 'CartController@store')->name('cart.store');
-Route::get('checkout','ShopController@checkout');
 Route::get('shop-grid', 'ShopController@product');
 Route::get('blog', 'ShopController@blog');
 
+Route::middleware(['auth'])->group(function() {
+    Route::get('checkout','ShopController@checkout');
+    Route::post('checkout','ShopController@saveCheckout');
+});
 // Route::get('/barang-api', [ProdukController::class, 'barang_api']);
 Route::prefix('admin')->middleware(['auth','auth.admin'])->group(function() {
     /* Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');

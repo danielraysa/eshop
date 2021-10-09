@@ -19,18 +19,19 @@
 				
 		<!-- Start Checkout -->
 		<section class="shop checkout section">
+			<form class="form" method="post" action="{{ url('checkout') }}">
+			@csrf
 			<div class="container">
 				<div class="row"> 
 					<div class="col-lg-8 col-12">
 						<div class="checkout-form">
 							<h2>Make Your Checkout Here</h2>
 							<p>Please register in order to checkout more quickly</p>
-							<!-- Form -->
-							<form class="form" method="post" action="#">
 								<div class="row">
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Name<span>*</span></label>
+											<input type="hidden" name="user_id" placeholder="" value="{{ Auth::user()->id }}" required="required">
 											<input type="text" name="name" placeholder="" value="{{ Auth::user()->name }}" required="required">
 										</div>
 									</div>
@@ -49,7 +50,7 @@
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Phone Number<span>*</span></label>
-											<input type="number" name="number" placeholder="" value="{{ Auth::user()->phone_number }}" required="required">
+											<input type="text" name="number" placeholder="" value="{{ Auth::user()->phone_number }}" required="required">
 										</div>
 									</div>
 									{{-- <div class="col-lg-6 col-md-6 col-12">
@@ -357,8 +358,6 @@
 										</div>
 									</div> --}}
 								</div>
-							</form>
-							<!--/ End Form -->
 						</div>
 					</div>
 					<div class="col-lg-4 col-12">
@@ -368,9 +367,12 @@
 								<h2>CART  TOTALS</h2>
 								<div class="content">
 									<ul>
-										<li>Sub Total<span>Rp. {{ number_format($item['sub_total'],0,",",".") }}</span></li>
+										@foreach ($item_list as $item)
+											
+										<li>{{ $item['nama_produk'] }} ({{ $item['jumlah'] }}x)<span>Rp. {{ number_format($item['sub_total'],0,",",".") }}</span></li>
+										@endforeach
 										{{-- <li>(+) Shipping<span>$10.00</span></li> --}}
-										<li class="last">Total<span>Rp/ {{ number_format($item['sub_total'],0,",",".") }}</span></li>
+										<li class="last">Total<span>Rp. {{ number_format($item_list->sum('sub_total'),0,",",".") }}</span></li>
 									</ul>
 								</div>
 							</div>
@@ -379,26 +381,27 @@
 							<div class="single-widget">
 								<h2>Payments</h2>
 								<div class="content">
-									<div class="checkbox">
-										<label class="checkbox-inline" for="1"><input name="payment" id="1" type="radio"> Transfer</label>
-										<label class="checkbox-inline" for="2"><input name="payment" id="2" type="radio"> Cash On Delivery</label>
+									<div class="container">
+										<label class="checkbox-inline" for="1"><input name="payment" type="radio" value="transfer" checked> Transfer Bank</label><br/>
+										<label class="checkbox-inline" for="2"><input name="payment" type="radio" value="cod"> Cash On Delivery</label>
 										{{-- <label class="checkbox-inline" for="3"><input name="payment" id="3" type="radio"> PayPal</label> --}}
 									</div>
 								</div>
 							</div>
 							<!--/ End Order Widget -->
 							<!-- Payment Method Widget -->
-							<div class="single-widget payement">
+							{{-- <div class="single-widget payement">
 								<div class="content">
 									<img src="images/payment-method.png" alt="#">
 								</div>
-							</div>
+							</div> --}}
 							<!--/ End Payment Method Widget -->
 							<!-- Button Widget -->
 							<div class="single-widget get-button">
 								<div class="content">
 									<div class="button">
-										<a href="#" class="btn">proceed to checkout</a>
+										{{-- <a href="#" class="btn">proceed to checkout</a> --}}
+										<button type="submit" class="btn">proceed to checkout</button>
 									</div>
 								</div>
 							</div>
@@ -407,6 +410,7 @@
 					</div>
 				</div>
 			</div>
+		</form>
 		</section>
 		<!--/ End Checkout -->
 		
