@@ -19,7 +19,7 @@ class CartController extends Controller
         //
         $kategori = Kategori::all();
         $data['kategori'] = $kategori;
-        // session()->forget('cart');
+
         if(session('cart') == null){
             session(['cart' => collect()]);
         }
@@ -27,13 +27,14 @@ class CartController extends Controller
         // dd($cart);
         $item_list = $cart->map(function ($item) {
             $produk = Produk::find($item['produk_id']);
-            return [
+            return $produk->produk_cart($item['jumlah']);
+            /* return [
                 'produk_id' => $produk->id,
                 'nama_produk' => $produk->nama_produk,
                 'harga' => $produk->harga,
                 'jumlah' => $item['jumlah'],
                 'sub_total' => $item['jumlah'] * $produk->harga,
-            ];
+            ]; */
         });
         $data['item_list'] = $item_list;
         // dd($item_list);
@@ -62,9 +63,9 @@ class CartController extends Controller
         if(session('cart') == null){
             session(['cart' => collect()]);
         }
-        // $cart = collect(session('cart'));
+
         $cart = session('cart');
-        // dd($cart);
+
         if(!empty($cart)){
             
             $find_item = $cart->where('produk_id', $id)->first();
@@ -119,6 +120,20 @@ class CartController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $cart = session('cart');
+        
+        $new_cart = $cart->map(function ($item, $key) use ($id, $request){
+            if($item['produk_id'] == $id){
+                return [
+                    'produk_id' => $item['produk_id'],
+                    'jumlah' => $request->tambah ? ($item['jumlah'] + 1) : ($item['jumlah'] - 1),
+                ];
+            }
+            return $item;
+        });
+        session(['cart' => $new_cart]);
+
+        return redirect()->back();
     }
 
     /**

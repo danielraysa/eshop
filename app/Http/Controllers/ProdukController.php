@@ -19,8 +19,6 @@ class ProdukController extends Controller
     {
         //
         $produk = Produk::paginate(10);
-        // $produk = Produk::all();
-        // dd($produk);
         return view('admin.barang.index', compact('produk'));
     }
 
@@ -29,7 +27,6 @@ class ProdukController extends Controller
         //
         // $produk = Produk::with('kategori')->get();
         $produk = Produk::all();
-        // dd($produk);
         return response()->json($produk, 200);
     }
 

@@ -31,7 +31,6 @@
 									<div class="col-lg-6 col-md-6 col-12">
 										<div class="form-group">
 											<label>Name<span>*</span></label>
-											<input type="hidden" name="user_id" placeholder="" value="{{ Auth::user()->id }}" required="required">
 											<input type="text" name="name" placeholder="" value="{{ Auth::user()->name }}" required="required">
 										</div>
 									</div>

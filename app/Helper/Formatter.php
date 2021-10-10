@@ -2,6 +2,6 @@
 class Formatter {
     public function formatRupiah($money)
     {
-        return "Rp. ".$money;
+        return "Rp. ".number_format($money,0,",",".");
     }
 }

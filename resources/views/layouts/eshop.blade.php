@@ -157,40 +157,40 @@
 								<a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
 							</div>
 							<div class="sinlge-bar shopping">
-								{{-- <a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{ $cart_list->count() }}</span></a> --}}
-								<a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">2</span></a>
+								<a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">{{ $cart_list->count() }}</span></a>
+								{{-- <a href="#" class="single-icon"><i class="ti-bag"></i> <span class="total-count">2</span></a> --}}
 								<!-- Shopping Item -->
 								<div class="shopping-item">
 									<div class="dropdown-cart-header">
-										{{-- <span>{{ $cart_list->count() }} Items</span> --}}
-										<span>2 Items</span>
+										<span>{{ $cart_list->count() }} Items</span>
+										{{-- <span>2 Items</span> --}}
 										<a href="{{ url('cart') }}">View Cart</a>
 									</div>
-									{{-- @if($cart_list->count() != 0) --}}
+									@if($cart_list->count() != 0)
 									<ul class="shopping-list">
-										{{-- @foreach ($cart_list as $item) --}}
+										@foreach ($cart_list as $item)
 										<li>
 											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
 											<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
-											<h4><a href="#">Woman Ring</a></h4>
-											<p class="quantity">1x - <span class="amount">$99.00</span></p>
+											<h4><a href="#">{{ $item['nama_produk'] }}</a></h4>
+											<p class="quantity">{{ $item['jumlah'] }}x - <span class="amount">Rp. {{ number_format($item['harga'],0,",",".") }}</span></p>
 										</li>
-										<li>
+										{{-- <li>
 											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
 											<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
 											<h4><a href="#">Woman Necklace</a></h4>
 											<p class="quantity">1x - <span class="amount">$35.00</span></p>
-										</li>
-										{{-- @endforeach --}}
+										</li> --}}
+										@endforeach
 									</ul>
 									<div class="bottom">
 										<div class="total">
 											<span>Total</span>
-											<span class="total-amount">$134.00</span>
+											<span class="total-amount">Rp. {{ number_format($cart_list->sum('sub_total'),0,",",".") }}</span>
 										</div>
 										<a href="{{ url('checkout') }}" class="btn animate">Checkout</a>
 									</div>
-									{{-- @endif --}}
+									@endif
 								</div>
 								<!--/ End Shopping Item -->
 							</div>
@@ -212,20 +212,14 @@
                                             <ul class="nav main-menu menu navbar-nav">
                                                 <li class="active"><a href="{{ url('/') }}">Home</a></li>
                                                 <li><a href="{{ url('products') }}">Product</a></li>												
-                                                {{-- <li><a href="#">Service</a></li> --}}
-                                                <li><a href="#">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
+                                                {{-- <li><a href="#">Shop<i class="ti-angle-down"></i><span class="new">New</span></a> --}}
+                                                <li><a href="#">Shop<i class="ti-angle-down"></i></a>
                                                     <ul class="dropdown">
-                                                        <li><a href="{{ url('shop-grid') }}">Shop Grid</a></li>
+                                                        {{-- <li><a href="{{ url('shop-grid') }}">Shop Grid</a></li> --}}
                                                         <li><a href="{{ url('cart') }}">Cart</a></li>
                                                         <li><a href="{{ url('checkout') }}">Checkout</a></li>
                                                     </ul>
                                                 </li>
-                                                {{-- <li><a href="#">Pages</a></li> --}}
-                                                {{-- <li><a href="#">Blog<i class="ti-angle-down"></i></a>
-                                                    <ul class="dropdown">
-                                                        <li><a href="blog-single-sidebar.html">Blog Single Sidebar</a></li>
-                                                    </ul>
-                                                </li> --}}
                                                 <li><a href="{{ url('contact') }}">Contact Us</a></li>
                                             </ul>
                                         </div>

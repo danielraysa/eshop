@@ -27,4 +27,15 @@ class Produk extends Model
        return $this->hasOne('App\Gambar', 'produk');
      
     }
+
+	public function produk_cart($jumlah)
+	{
+		return [
+			'produk_id' => $this->id,
+			'nama_produk' => $this->nama_produk,
+			'harga' => $this->harga,
+			'jumlah' => $jumlah,
+			'sub_total' => $jumlah * $this->harga,
+		];
+	}
 }

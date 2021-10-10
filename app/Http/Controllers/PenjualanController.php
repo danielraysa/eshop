@@ -14,6 +14,9 @@ class PenjualanController extends Controller
     //
     public function index()
     {
-        return view('admin.penjualan.index');
+        $transaksi = Transaksi::with('user_pembeli','detail_transaksi.detail_produk')->get();
+        $data['transaksi'] = $transaksi;
+        // dd($transaksi);
+        return view('admin.penjualan.index', $data);
     }
 }

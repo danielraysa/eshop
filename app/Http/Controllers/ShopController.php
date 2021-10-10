@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Kategori;
 use App\Produk;
+use App\Transaksi;
+use App\DetailTransaksi;
+use Auth;
 
 class ShopController extends Controller
 {
@@ -12,9 +15,9 @@ class ShopController extends Controller
     public function index()
     {
         $produk = Produk::get()->take(8);
-        $kategori = Kategori::all();
+        // $kategori = Kategori::all();
         $data['produk'] = $produk;
-        $data['kategori'] = $kategori;
+        // $data['kategori'] = $kategori;
         return view('welcome', $data);
     }
     
@@ -46,13 +49,7 @@ class ShopController extends Controller
         $cart  = session('cart');
         $item_list = $cart->map(function ($item) {
             $produk = Produk::find($item['produk_id']);
-            return [
-                'produk_id' => $produk->id,
-                'nama_produk' => $produk->nama_produk,
-                'harga' => $produk->harga,
-                'jumlah' => $item['jumlah'],
-                'sub_total' => $item['jumlah'] * $produk->harga,
-            ];
+            return $produk->produk_cart($item['jumlah']);
         });
         $data['item_list'] = $item_list;
         // dd($item_list);
@@ -62,8 +59,29 @@ class ShopController extends Controller
     public function saveCheckout(Request $request)
     {
         $cart  = session('cart');
-        dd($cart, $request->all());
-        // return view('checkout', $data);
+        $user = Auth::user();
+        $item_list = $cart->map(function ($item) {
+            $produk = Produk::find($item['produk_id']);
+            return $produk->produk_cart($item['jumlah']);
+        });
+        $transaksi = Transaksi::create([
+            'user' => $user->id,
+            'address' => $request->address,
+            'phone_number' => $request->number,
+            'payment_method' => $request->payment,
+            'total' => $item_list->sum('sub_total'),
+        ]);
+        foreach($item_list as $item){
+            $detail = DetailTransaksi::create([
+                'transaksi' => $transaksi->id,
+                'produk' => $item['produk_id'],
+                'harga' => $item['harga'],
+                'jumlah' => $item['jumlah'],
+            ]);
+        }
+        session(['cart' => collect()]);
+        
+        return redirect('/')->with('alert', ['type' => 'success', 'message' => 'Berhasil memesan produk']);
     }
 
     public function blog()

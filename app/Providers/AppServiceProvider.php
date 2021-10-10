@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use App\Produk;
+use App\Kategori;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,11 +27,20 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        /* $kategori = Kategori::all();
-        View::share('kategori', $kategori);
-        if(session('cart')){
-            View::share('kategori', session('cart'));
-        } */
+        if(session('cart') == null){
+            session(['cart' => collect()]);
+        }
+        view()->composer('layouts.eshop', function ($view){
+            $kategori = Kategori::all();
+            $view->with('kategori', $kategori);
+        
+            $cart = session('cart');
+            $item_list = $cart->map(function ($item) {
+                $produk = Produk::find($item['produk_id']);
+                return $produk->produk_cart($item['jumlah']);
+            });
+            $view->with('cart_list', $item_list);
+        });
         
     }
 }
