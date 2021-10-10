@@ -22,7 +22,7 @@
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td>{{ $item->user_pembeli->name }}</td>
                         <td>{{ $item->phone_number }}</td>
-                        <td class="text-center">{{ {{ number_format($item->total,0,",",".") }} }}</td>
+                        <td class="text-center">{{ number_format($item->total,0,",",".") }}</td>
                         <td class="text-center">
                             @if($item->status_payment == null)
                             <button class="btn btn-primary"><i data-feather="edit"></i> Edit</button>
