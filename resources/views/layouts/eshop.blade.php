@@ -98,8 +98,8 @@
 								<li><i class="ti-power-off"></i><a href="{{ url('login') }}">Login</a></li>
 								<li><i class="ti-user"></i> <a href="{{ url('register') }}">Register</a></li>
 								@else
+								<li><i class="ti-user"></i> <a href="{{ url('profile') }}">My account</a></li>
 								<li><i class="ti-power-off"></i><a href="{{ url('logout') }}">Logout</a></li>
-								{{-- <li><i class="ti-user"></i> <a href="{{ url('profile') }}">My account</a></li> --}}
 								@endguest
 							</ul>
 						</div>
@@ -135,14 +135,14 @@
 					</div>
 					<div class="col-lg-8 col-md-7 col-12">
 						<div class="search-bar-top">
-							<div class="search-bar" style="width:100%">
-								<form action="{{ route('product') }}" style="width:100%">
-									<select name="kategori">
-										<option value="all">All Category</option>
-										@foreach($kategori as $item)
-										<option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
-										@endforeach
-									</select>
+							<div class="search-bar">
+								<select name="kategori">
+									<option value="all">All Category</option>
+									@foreach($kategori as $item)
+									<option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
+									@endforeach
+								</select>
+								<form action="{{ route('product') }}">
 									<input name="search" placeholder="Search Products Here....." type="search">
 									<button class="btnn"><i class="ti-search"></i></button>
 								</form>
@@ -173,7 +173,7 @@
 											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
 											<a class="cart-img" href="#"><img src="https://via.placeholder.com/70x70" alt="#"></a>
 											<h4><a href="#">{{ $item['nama_produk'] }}</a></h4>
-											<p class="quantity">{{ $item['jumlah'] }}x - <span class="amount">Rp. {{ number_format($item['harga'],0,",",".") }}</span></p>
+											<p class="quantity">{{ $item['jumlah'] }}x - <span class="amount">{{ Formatter::formatRupiah($item['harga']) }}</span></p>
 										</li>
 										{{-- <li>
 											<a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
@@ -186,7 +186,7 @@
 									<div class="bottom">
 										<div class="total">
 											<span>Total</span>
-											<span class="total-amount">Rp. {{ number_format($cart_list->sum('sub_total'),0,",",".") }}</span>
+											<span class="total-amount">{{ Formatter::formatRupiah($cart_list->sum('sub_total')) }}</span>
 										</div>
 										<a href="{{ url('checkout') }}" class="btn animate">Checkout</a>
 									</div>

@@ -121,7 +121,7 @@
 							<div class="product-content">
 								<h3><a href="{{ url('products/'.$item->id) }}">{{ $item->nama_produk }}</a></h3>
 								<div class="product-price">
-									<span>Rp {{ number_format($item->harga, 0, ",", ".") }}</span>
+									<span>{{ Formatter::formatRupiah($item->harga) }}</span>
 								</div>
 							</div>
 						</div>

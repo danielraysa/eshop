@@ -33,6 +33,7 @@ Route::get('shop-grid', 'ShopController@product');
 Route::get('blog', 'ShopController@blog');
 
 Route::middleware(['auth'])->group(function() {
+    Route::get('profile','UserController@profile');
     Route::get('checkout','ShopController@checkout');
     Route::post('checkout','ShopController@saveCheckout');
 });

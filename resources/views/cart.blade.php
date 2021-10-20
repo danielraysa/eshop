@@ -43,7 +43,7 @@
 									<p class="product-name"><a href="#">{{ $item['nama_produk'] }}</a></p>
 									{{-- <p class="product-des">Maboriosam in a tonto nesciung eget  distingy magndapibus.</p> --}}
 								</td>
-								<td class="price" data-title="Price"><span>Rp. {{ number_format($item['harga'],0,",",".") }}</span></td>
+								<td class="price" data-title="Price"><span>{{ Formatter::formatRupiah($item['harga']) }}</span></td>
 								<td class="qty" data-title="Qty"><!-- Input Order -->
 									<div class="input-group">
 										<div class="button minus">
@@ -60,7 +60,7 @@
 									</div>
 									<!--/ End Input Order -->
 								</td>
-								<td class="total-amount" data-title="Total"><span>Rp {{ number_format($item['sub_total'],0,",",".") }}</span></td>
+								<td class="total-amount" data-title="Total"><span>Rp {{ Formatter::formatRupiah($item['sub_total']) }}</span></td>
 								<td class="action" data-title="Remove"><a href="#"><i class="ti-trash remove-icon"></i></a></td>
 							</tr>
 							
@@ -149,7 +149,7 @@
 							<div class="col-lg-4 col-md-7 col-12">
 								<div class="right">
 									<ul>
-										<li>Cart Subtotal<span>Rp. {{ number_format($item_list->sum('sub_total'),0,",",".") }}</span></li>
+										<li>Cart Subtotal<span>{{ Formatter::formatRupiah($item_list->sum('sub_total')) }}</span></li>
 										{{-- <li>Shipping<span>Free</span></li> --}}
 										{{-- <li>You Save<span>$20.00</span></li> --}}
 										{{-- <li class="last">You Pay<span>$310.00</span></li> --}}

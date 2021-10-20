@@ -21,6 +21,7 @@ class CreateTransaksisTable extends Migration
             $table->string('payment_method');
             $table->integer('total');
             $table->string('status_payment')->nullable();
+            $table->string('transfer_receipt')->nullable();
             $table->timestamps();
         });
     }

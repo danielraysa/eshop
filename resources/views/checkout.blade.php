@@ -363,15 +363,14 @@
 						<div class="order-details">
 							<!-- Order Widget -->
 							<div class="single-widget">
-								<h2>CART  TOTALS</h2>
+								<h2>CART TOTALS</h2>
 								<div class="content">
 									<ul>
 										@foreach ($item_list as $item)
-											
-										<li>{{ $item['nama_produk'] }} ({{ $item['jumlah'] }}x)<span>Rp. {{ number_format($item['sub_total'],0,",",".") }}</span></li>
+										<li>{{ $item['nama_produk'] }} ({{ $item['jumlah'] }}x)<span>{{ Formatter::formatRupiah($item['sub_total']) }}</span></li>
 										@endforeach
 										{{-- <li>(+) Shipping<span>$10.00</span></li> --}}
-										<li class="last">Total<span>Rp. {{ number_format($item_list->sum('sub_total'),0,",",".") }}</span></li>
+										<li class="last">Total<span>{{ Formatter::formatRupiah($item_list->sum('sub_total')) }}</span></li>
 									</ul>
 								</div>
 							</div>
