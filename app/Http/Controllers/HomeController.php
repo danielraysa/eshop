@@ -27,7 +27,7 @@ class HomeController extends Controller
         if($user->role == 'admin'){
             return view('admin');
         }
-        // return view('welcome');
-        return view('new');
+        return view('welcome');
+        // return view('new');
     }
 }

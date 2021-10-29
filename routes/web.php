@@ -24,7 +24,7 @@ Route::get('products/{id}', 'ShopController@product_show');
 Route::get('about', 'ShopController@about')->name('about');
 Route::get('contact', 'ShopController@contact')->name('contact');
 Route::get('test', function () {
-    return view('new');
+    return view('product-single');
 });
 // Route::resource('cart', CartController::class);
 Route::get('cart','CartController@index')->name('cart.index');
@@ -36,6 +36,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('profile','UserController@profile');
     Route::get('checkout','ShopController@checkout');
     Route::post('checkout','ShopController@saveCheckout');
+    Route::get('checkout/success','ShopController@finishCheckout');
+    Route::post('checkout/upload','ShopController@uploadReceipt');
 });
 // Route::get('/barang-api', [ProdukController::class, 'barang_api']);
 Route::prefix('admin')->middleware(['auth','auth.admin'])->group(function() {

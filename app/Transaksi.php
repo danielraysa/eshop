@@ -21,4 +21,9 @@ class Transaksi extends Model
        return $this->belongsTo('App\User', 'user');
      
     }
+
+	public function getFile()
+    {
+        return asset(str_replace('public', 'storage', $this->transfer_receipt));
+    }
 }

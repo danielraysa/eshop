@@ -19,7 +19,7 @@
 				
 		<!-- Start Checkout -->
 		<section class="shop checkout section">
-			<form class="form" method="post" action="{{ url('checkout') }}">
+			<form class="form" method="post" action="{{ url('checkout') }}" enctype="multipart/form-data">
 			@csrf
 			<div class="container">
 				<div class="row"> 
@@ -385,6 +385,12 @@
 										{{-- <label class="checkbox-inline" for="3"><input name="payment" id="3" type="radio"> PayPal</label> --}}
 									</div>
 								</div>
+								<div class="content">
+									<div class="container">
+										<label>Bukti Transfer</label>
+										<input type="file" accept=".jpg,.jpeg,.png" name="file_receipt" class="form-control" />
+									</div>
+								</div>
 							</div>
 							<!--/ End Order Widget -->
 							<!-- Payment Method Widget -->
@@ -399,7 +405,7 @@
 								<div class="content">
 									<div class="button">
 										{{-- <a href="#" class="btn">proceed to checkout</a> --}}
-										<button type="submit" class="btn">proceed to checkout</button>
+										<button type="submit" class="btn">Checkout & Bayar</button>
 									</div>
 								</div>
 							</div>

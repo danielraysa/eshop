@@ -13,6 +13,8 @@
                         <th>User</th>
                         <th>No. HP</th>
                         <th>Total</th>
+                        <th>Bukti Bayar</th>
+                        <th>Status</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -23,12 +25,21 @@
                         <td>{{ $item->user_pembeli->name }}</td>
                         <td>{{ $item->phone_number }}</td>
                         <td class="text-center">{{ Formatter::formatRupiah($item->total) }}</td>
+                        <td class="text-center">{{ $item->payment_method }}</td>
+                        <td class="text-center">{{ $item->status_payment == null ? 'menunggu' : $item->status_payment }}</td>
                         <td class="text-center">
-                            @if($item->status_payment == null)
                             {{-- <button class="btn btn-primary"><i data-feather="edit"></i> Edit</button> --}}
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#transaksi_{{ $item->id }}"><i data-feather="list"></i> Detail</button>
-                            <button class="btn btn-success"><i data-feather="send"></i> Process</button>
-                            @endif
+                            <form action="{{ route('penjualan.update', $item->id) }}" method="POST">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#transaksi_{{ $item->id }}"><i data-feather="list"></i> Detail</button>
+                                @csrf
+                                @method('PUT')
+                                @if($item->status_payment == null)
+                                <button type="submit" class="btn btn-success"><i data-feather="send"></i> Process</button>
+                                @endif
+                                @if($item->status_payment == 'proses')
+                                <button type="button" class="btn btn-danger"><i data-feather="check-circle"></i> Selesai</button>
+                                @endif
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -67,6 +78,14 @@
                             @endforeach
                         </tbody>
                     </table>
+                    @if($item->payment_method == 'transfer')
+                    <p><b>Bukti Pembayaran</b></p>
+                    @if($item->transfer_receipt == null)
+                    Tidak Ada File
+                    @else
+                    <a href="{{ $item->getFile() }}" target="_blank"><img src="{{ $item->getFile() }}" style="width: 10rem" /></a>
+                    @endif
+                    @endif
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -337,7 +337,7 @@
 	<!-- Bootstrap JS -->
 	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 	<!-- Color JS -->
-	<script src="{{ asset('js/colors.js') }}"></script>
+	{{-- <script src="{{ asset('js/colors.js') }}"></script> --}}
 	<!-- Slicknav JS -->
 	<script src="{{ asset('js/slicknav.min.js') }}"></script>
 	<!-- Owl Carousel JS -->

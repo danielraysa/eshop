@@ -60,12 +60,17 @@ class CartController extends Controller
     public function store($id, Request $request)
     {
         //
+        // dd($request->all());
         if(session('cart') == null){
             session(['cart' => collect()]);
         }
 
         $cart = session('cart');
-
+        $jumlah_item = 1;
+        if($request->jumlah){
+            $jumlah_item = $request->jumlah;
+        }
+        // dd($jumlah_item);
         if(!empty($cart)){
             
             $find_item = $cart->where('produk_id', $id)->first();
@@ -73,16 +78,16 @@ class CartController extends Controller
             if($find_item){
                 $new_cart = $cart->map(function ($item, $key) use ($id) {
                     if($item['produk_id'] == $id){
-                        $item['jumlah'] = $item['jumlah'] + 1;
+                        $item['jumlah'] = $item['jumlah'] + $jumlah_item;
                     }
                     return $item;
                 });
                 session(['cart' => $new_cart]);
             }else{
-                $request->session()->push('cart', ['produk_id' => $id, 'jumlah' => 1]);
+                $request->session()->push('cart', ['produk_id' => $id, 'jumlah' => $jumlah_item]);
             }
         }else{
-            $request->session()->push('cart', ['produk_id' => $id, 'jumlah' => 1]);
+            $request->session()->push('cart', ['produk_id' => $id, 'jumlah' => $jumlah_item]);
         }
         // dd($cart);
         return redirect()->back()->with('alert', ['type' => 'success', 'message' => 'Berhasil menambahkan barang']);

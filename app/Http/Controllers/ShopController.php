@@ -8,6 +8,7 @@ use App\Produk;
 use App\Transaksi;
 use App\DetailTransaksi;
 use Auth;
+use Storage;
 
 class ShopController extends Controller
 {
@@ -23,8 +24,8 @@ class ShopController extends Controller
     
     public function contact()
     {
-        $kategori = Kategori::all();
-        $data['kategori'] = $kategori;
+        // $kategori = Kategori::all();
+        // $data['kategori'] = $kategori;
         return view('contact', $data);
     }
 
@@ -40,8 +41,8 @@ class ShopController extends Controller
 
     public function checkout()
     {
-        $kategori = Kategori::all();
-        $data['kategori'] = $kategori;
+        // $kategori = Kategori::all();
+        // $data['kategori'] = $kategori;
         // session()->forget('cart');
         if(session('cart') == null){
             session(['cart' => collect()]);
@@ -64,12 +65,23 @@ class ShopController extends Controller
             $produk = Produk::find($item['produk_id']);
             return $produk->produk_cart($item['jumlah']);
         });
+        $transfer = null;
+        if($request->file_receipt){
+            if(!is_dir(public_path('storage'))){
+                // mkdir(public_path('uploads'));
+                \Artisan::call('storage:link');
+
+            }
+            // $path = Storage::put('uploads', $gambar);
+            $transfer = Storage::putFile('public/receipt', $request->file_receipt);
+        }
         $transaksi = Transaksi::create([
             'user' => $user->id,
             'address' => $request->address,
             'phone_number' => $request->number,
             'payment_method' => $request->payment,
             'total' => $item_list->sum('sub_total'),
+            'transfer_receipt' => $transfer
         ]);
         foreach($item_list as $item){
             $detail = DetailTransaksi::create([
@@ -107,10 +119,9 @@ class ShopController extends Controller
     public function product_show($id)
     {
         $produk = Produk::find($id);
-        $kategori = Kategori::all();
         $data['produk'] = $produk;
-        $data['kategori'] = $kategori;
-        return view('product', $data);
+        // return view('product', $data);
+        return view('product-single', $data);
     }
     
 
