@@ -22,7 +22,7 @@
             </li> --}}
             <li class="sidebar-item {{ Request::is('kategori*') ? 'active' : '' }}">
                 <a class="sidebar-link" href="{{ route('kategori.index') }}">
-                    <i class="align-middle" data-feather="package"></i> <span class="align-middle">Data Kategori</span>
+                    <i class="align-middle" data-feather="tag"></i> <span class="align-middle">Data Kategori</span>
                 </a>
             </li>
             <li class="sidebar-item {{ Request::is('barang*') ? 'active' : '' }}">
@@ -43,13 +43,13 @@
 
             <li class="sidebar-item {{ Route::currentRouteName() == 'penjualan.index' ? 'active' : '' }}">
                 <a class="sidebar-link" href="{{ route('penjualan.index') }}">
-                    <i class="align-middle" data-feather="edit-3"></i> <span class="align-middle">Penjualan</span>
+                    <i class="align-middle" data-feather="edit-3"></i> <span class="align-middle">Transaksi</span>
                 </a>
             </li>
 
             <li class="sidebar-item {{ Route::currentRouteName() == 'report' ? 'active' : '' }}">
                 <a class="sidebar-link" href="{{ route('report') }}">
-                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Report</span>
+                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Laporan</span>
                 </a>
             </li>
 

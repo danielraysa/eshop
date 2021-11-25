@@ -76,7 +76,7 @@ class CartController extends Controller
             $find_item = $cart->where('produk_id', $id)->first();
             
             if($find_item){
-                $new_cart = $cart->map(function ($item, $key) use ($id) {
+                $new_cart = $cart->map(function ($item) use ($id, $jumlah_item) {
                     if($item['produk_id'] == $id){
                         $item['jumlah'] = $item['jumlah'] + $jumlah_item;
                     }
