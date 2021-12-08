@@ -1,4 +1,4 @@
-@extends('layouts.admin', ['title_page' => 'Tambah Kategori'])
+@extends('layouts.admin', ['title_page' => isset($kategori) ? 'Ubah Kategori' : 'Tambah Kategori'])
 @push('js')
     
 @endpush
@@ -14,7 +14,7 @@
             @csrf
             <div class="form-group">
                 <label>Nama Kategori</label>
-                <input name="nama_kategori"  value="{{ isset($kategori) ? $kategori->nama_kategori : '' }}" class="form-control"/>
+                <input name="nama_kategori" value="{{ isset($kategori) ? $kategori->nama_kategori : '' }}" class="form-control"/>
             </div>
             <button class="btn btn-success mt-3" type="submit">Simpan</button>
         </div>

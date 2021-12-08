@@ -30,6 +30,11 @@
                     <i class="align-middle" data-feather="package"></i> <span class="align-middle">Data Barang</span>
                 </a>
             </li>
+            <li class="sidebar-item {{ Request::is('banner*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('banner.index') }}">
+                    <i class="align-middle" data-feather="image"></i> <span class="align-middle">Slide Banner</span>
+                </a>
+            </li>
 
             {{-- <li class="sidebar-item">
                 <a href="#auth" data-bs-toggle="collapse" class="sidebar-link collapsed">

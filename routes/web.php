@@ -50,6 +50,7 @@ Route::prefix('admin')->middleware(['auth','auth.admin'])->group(function() {
     Route::get('dashboard', 'HomeController@index')->name('dashboard');
     Route::resource('barang', 'ProdukController');
     Route::resource('kategori', 'KategoriController');
+    Route::resource('banner', 'SlideBannerController');
     Route::resource('penjualan', 'PenjualanController');
     Route::get('report', 'LaporanController@index')->name('report');
     // Route::get('penjualan', 'AdminController@input_transaksi')->name('penjualan');

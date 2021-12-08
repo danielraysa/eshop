@@ -6,7 +6,8 @@ use App\Produk;
 use App\Kategori;
 use App\Gambar;
 use Illuminate\Http\Request;
-use Storage;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 
 class ProdukController extends Controller
 {
@@ -55,7 +56,7 @@ class ProdukController extends Controller
             $temp_path = [];
             if(!is_dir(public_path('storage'))){
                 // mkdir(public_path('uploads'));
-                \Artisan::call('storage:link');
+                Artisan::call('storage:link');
 
             }
             foreach($request->file_gambar as $gambar){
@@ -116,15 +117,32 @@ class ProdukController extends Controller
     public function update(Request $request, $id)
     {
         //
-        Produk::find($id)->update([
+        $produk = Produk::find($id);
+        $produk->update([
             'kategori' => $request->kategori,
             'nama_produk' => $request->nama_produk,
             'harga' => $request->harga,
             'stok' => $request->stok,
             'deskripsi' => $request->deskripsi,
         ]);
-        $gambars = Gambar::where('produk', $id)->get();
-        return redirect()->route('barang.index');
+        if($request->file_gambar){
+            $temp_path = [];
+            if(!is_dir(public_path('storage'))){
+                Artisan::call('storage:link');
+    
+            }
+            foreach($request->file_gambar as $gambar){
+                $path = Storage::putFile('public/uploads', $gambar);
+                array_push($temp_path, $path);
+            }
+            foreach($temp_path as $tmp){
+                Gambar::create([
+                    'produk' => $produk->id,
+                    'path_file' => $tmp,
+                ]);
+            }
+        }
+        return redirect()->route('barang.index')->with('status', ['class' => 'success', 'value' => 'Berhasil mengupdate produk']);
     }
 
     /**

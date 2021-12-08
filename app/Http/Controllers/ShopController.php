@@ -7,26 +7,26 @@ use App\Kategori;
 use App\Produk;
 use App\Transaksi;
 use App\DetailTransaksi;
-use Auth;
-use Storage;
+use App\SlideBanner;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 
 class ShopController extends Controller
 {
     //
     public function index()
     {
-        $produk = Produk::get()->take(8);
-        // $kategori = Kategori::all();
+        $banner = SlideBanner::take(4)->get();
+        $produk = Produk::take(8)->get();
         $data['produk'] = $produk;
-        // $data['kategori'] = $kategori;
+        $data['banner'] = $banner;
         return view('welcome', $data);
     }
     
     public function contact()
     {
-        // $kategori = Kategori::all();
-        // $data['kategori'] = $kategori;
-        return view('contact', $data);
+        return view('contact');
     }
 
     public function about()
@@ -41,9 +41,6 @@ class ShopController extends Controller
 
     public function checkout()
     {
-        // $kategori = Kategori::all();
-        // $data['kategori'] = $kategori;
-        // session()->forget('cart');
         if(session('cart') == null){
             session(['cart' => collect()]);
         }
@@ -69,7 +66,7 @@ class ShopController extends Controller
         if($request->file_receipt){
             if(!is_dir(public_path('storage'))){
                 // mkdir(public_path('uploads'));
-                \Artisan::call('storage:link');
+                Artisan::call('storage:link');
 
             }
             // $path = Storage::put('uploads', $gambar);
